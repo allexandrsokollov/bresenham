@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.canvas.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" prefHeight="700" prefWidth="700" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.sokolov.graphics_task_2_8.HelloController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+   <ToolBar prefHeight="65.0" prefWidth="525.0">
+     <items>
+         <ColorPicker fx:id="colorPicker1" prefHeight="25.0" prefWidth="130.0" />
+         <ColorPicker fx:id="colorPicker2" />
+          <Button onAction="#onHelloButtonClick" text="Hello!" />
+     </items>
+   </ToolBar>
+   <Canvas fx:id="canvas" height="600" width="600" />
+</VBox>
