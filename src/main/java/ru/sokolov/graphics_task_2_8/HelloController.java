@@ -12,15 +12,13 @@ public class HelloController {
     @FXML
     private ColorPicker colorPicker1;
     @FXML
+    private ColorPicker colorPicker2;
+    @FXML
     private Canvas canvas;
 
     @FXML
     protected void onHelloButtonClick() {
-        Color color = colorPicker1.getValue();
-
-        Circle circle = new Circle(300,300, 100);
-        circle.drawCircle(canvas, Color.BLACK);
-
-
+        Circle circle = new Circle(300,300, 200);
+        circle.drawFilledCircle(canvas, colorPicker1.getValue(), colorPicker2.getValue());
     }
 }

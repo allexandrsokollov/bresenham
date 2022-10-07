@@ -7,7 +7,8 @@ import javafx.scene.paint.Color;
 public class Circle {
     private final int initialX;
     private final int initialY;
-    private final int radius;
+    private int radius;
+
 
     public Circle(int x, int y, int radius) {
         this.initialX = x;
@@ -15,7 +16,19 @@ public class Circle {
         this.radius = radius;
     }
 
-    public void drawCircle(Canvas canvas, Color color) {
+    public void drawFilledCircle(Canvas canvas, Color color1, Color color2) {
+        int r = Math.toIntExact(Math.round(color1.getRed() * 255));
+        int g = Math.toIntExact(Math.round(color1.getGreen() * 255));
+        int b = Math.toIntExact(Math.round(color1.getBlue() * 255));
+
+        double Dr = (color1.getRed() - color2.getRed()) * 255 / radius;
+        double Dg = (color1.getGreen() - color2.getGreen()) * 255 / radius;
+        double Db = (color1.getBlue() - color2.getBlue()) * 255 / radius;
+
+
+    }
+
+    private void drawCircle(Canvas canvas, Color color) {
         PixelWriter pixelWriter = canvas.getGraphicsContext2D().getPixelWriter();
 
         int x = 0;
@@ -24,10 +37,11 @@ public class Circle {
         int error = 0;
 
         while (y >= 0) {
-            pixelWriter.setColor(initialX + x, initialY + y, color);
-            pixelWriter.setColor(initialX + x, initialY - y, color);
-            pixelWriter.setColor(initialX - x, initialY + y, color);
-            pixelWriter.setColor(initialX - x, initialY - y, color);
+
+            draw(initialX + x, initialY + y, color, pixelWriter);
+            draw(initialX + x, initialY - y, color, pixelWriter);
+            draw(initialX - x, initialY + y, color, pixelWriter);
+            draw(initialX - x, initialY - y, color,pixelWriter);
 
             if (delta < 0 && error <= 0) {
                 x++;
@@ -45,5 +59,9 @@ public class Circle {
             delta += 2 * (x - y);
             y--;
         }
+    }
+
+    private void draw(int x, int y, Color color, PixelWriter pixelWriter) {
+
     }
 }
