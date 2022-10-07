@@ -56,6 +56,15 @@ public class Circle {
         int g = Math.toIntExact(Math.round(color1.getGreen() * 255));
         int b = Math.toIntExact(Math.round(color1.getBlue() * 255));
 
+        double[] colorDiff = findColorsDifference(color1, color2);
+
+        PixelWriter pixelWriter = canvas.getGraphicsContext2D().getPixelWriter();
+        for (int x = x0; x <= x1; x++) {
+            pixelWriter.setColor(x, y, getInterpolatedColor(x, y, colorDiff, r, g, b));
+        }
+    }
+
+    private double[] findColorsDifference(Color color1, Color color2) {
         double Dr = (color1.getRed() - color2.getRed()) * 255 / radius;
         double Dg = (color1.getGreen() - color2.getGreen()) * 255 / radius;
         double Db = (color1.getBlue() - color2.getBlue()) * 255 / radius;
@@ -64,24 +73,24 @@ public class Circle {
         Dg = (color1.getGreen() - color2.getGreen() >= 0) ? Math.abs(Dg) * -1 : Math.abs(Dg);
         Db = (color1.getBlue() - color2.getBlue() >= 0) ? Math.abs(Db) * -1 : Math.abs(Db);
 
+        return new double[] {Dr, Dg, Db};
+    }
 
-        PixelWriter pixelWriter = canvas.getGraphicsContext2D().getPixelWriter();
-        for (int x = x0; x <= x1; x++) {
-            int distance = (int) Math.sqrt((initialX - x) * (initialX - x) + (initialY - y) * (initialY - y));
+    private Color getInterpolatedColor(int x, int y, double[] colorDifference, int initColorR, int initColorG, int initColorB) {
+        int distance = (int) Math.sqrt((initialX - x) * (initialX - x) + (initialY - y) * (initialY - y));
 
-            int red = (int) (r + Dr * distance);
-            int green = (int) (g + Dg * distance);
-            int blue = (int) (b + Db * distance);
+        int red = (int) (initColorR + colorDifference[0] * distance);
+        int green = (int) (initColorG + colorDifference[1] * distance);
+        int blue = (int) (initColorB + colorDifference[2] * distance);
 
-            if (red < 0) red = 0;
-            if (green < 0) green = 0;
-            if (blue < 0) blue = 0;
+        if (red < 0) red = 0;
+        if (green < 0) green = 0;
+        if (blue < 0) blue = 0;
 
-            if (red > 255) red = 255;
-            if (green > 255) green = 255;
-            if (blue > 255) blue = 255;
+        if (red > 255) red = 255;
+        if (green > 255) green = 255;
+        if (blue > 255) blue = 255;
 
-            pixelWriter.setColor(x, y, Color.rgb(red, green, blue));
-        }
+        return Color.rgb(red, green, blue);
     }
 }

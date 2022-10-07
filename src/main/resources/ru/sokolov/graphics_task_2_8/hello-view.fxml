@@ -9,12 +9,10 @@
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
-   <ToolBar prefHeight="65.0" prefWidth="525.0">
-     <items>
-         <ColorPicker fx:id="colorPicker1" prefHeight="25.0" prefWidth="130.0" />
-         <ColorPicker fx:id="colorPicker2" />
-          <Button onAction="#onHelloButtonClick" text="Hello!" />
-     </items>
-   </ToolBar>
+    <ToolBar prefHeight="65.0" prefWidth="525.0">
+        <ColorPicker fx:id="colorPicker1" prefHeight="25.0" prefWidth="130.0"/>
+        <ColorPicker fx:id="colorPicker2"/>
+        <Button onAction="#onHelloButtonClick" text="Draw!"/>
+    </ToolBar>
    <Canvas fx:id="canvas" height="600" width="600" />
 </VBox>
