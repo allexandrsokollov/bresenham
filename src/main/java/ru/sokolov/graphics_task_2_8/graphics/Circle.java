@@ -28,7 +28,7 @@ public class Circle {
 
     }
 
-    private void drawCircle(Canvas canvas, Color color) {
+    public  void drawCircle(Canvas canvas, Color color) {
         PixelWriter pixelWriter = canvas.getGraphicsContext2D().getPixelWriter();
 
         int x = 0;
@@ -38,10 +38,9 @@ public class Circle {
 
         while (y >= 0) {
 
-            draw(initialX + x, initialY + y, color, pixelWriter);
-            draw(initialX + x, initialY - y, color, pixelWriter);
-            draw(initialX - x, initialY + y, color, pixelWriter);
-            draw(initialX - x, initialY - y, color,pixelWriter);
+            drawHorizontal(initialX + x, initialX - x, initialY + y, canvas, color);
+            drawHorizontal(initialX + x, initialX - x, initialY - y, canvas, color);
+
 
             if (delta < 0 && error <= 0) {
                 x++;
@@ -61,7 +60,15 @@ public class Circle {
         }
     }
 
-    private void draw(int x, int y, Color color, PixelWriter pixelWriter) {
-
+    private static void drawHorizontal(int x0, int x1, int y, Canvas canvas, Color color) {
+        if (x0 > x1) {
+            int temp = x0;
+            x0 = x1;
+            x1 = temp;
+        }
+        PixelWriter pixelWriter = canvas.getGraphicsContext2D().getPixelWriter();
+        for (int x = x0; x <= x1; x++) {
+            pixelWriter.setColor(x, y, color);
+        }
     }
 }
