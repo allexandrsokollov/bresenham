@@ -58,9 +58,16 @@ public class Circle {
 
         double[] colorDiff = findColorsDifference(color1, color2);
 
+        Line line = new Line(300, 300, 500, 100);
+        Line line1 = new Line(300, 300, 500, 300);
+
+        Line line3 = new Line(300, 300, 100, 500);
+
         PixelWriter pixelWriter = canvas.getGraphicsContext2D().getPixelWriter();
         for (int x = x0; x <= x1; x++) {
-            pixelWriter.setColor(x, y, getInterpolatedColor(x, y, colorDiff, r, g, b));
+            if (line3.isPointUnderLine(x, y)) {
+                pixelWriter.setColor(x, y, getInterpolatedColor(x, y, colorDiff, r, g, b));
+            }
         }
     }
 
