@@ -16,7 +16,7 @@ public class Circle {
         this.radius = radius;
     }
 
-    public  void drawCircle(Canvas canvas, Color color1, Color color2) {
+    public  void drawCircle(Canvas canvas, Color color1, Color color2, Line line1, Line line2) {
         int x = 0;
         int y = radius;
         int delta = 1 - 2 * radius;
@@ -24,8 +24,8 @@ public class Circle {
 
         while (y >= 0) {
 
-            drawHorizontal(initialX + x, initialX - x, initialY + y, canvas, color1, color2);
-            drawHorizontal(initialX + x, initialX - x, initialY - y, canvas, color1, color2);
+            drawHorizontal(initialX + x, initialX - x, initialY + y, canvas, color1, color2, line1, line2);
+            drawHorizontal(initialX + x, initialX - x, initialY - y, canvas, color1, color2, line1, line2);
 
             if (delta < 0 && error <= 0) {
                 x++;
@@ -45,7 +45,7 @@ public class Circle {
         }
     }
 
-    private void drawHorizontal(int x0, int x1, int y, Canvas canvas, Color color1, Color color2) {
+    private void drawHorizontal(int x0, int x1, int y, Canvas canvas, Color color1, Color color2, Line line1, Line line2) {
         if (x0 > x1) {
             int temp = x0;
             x0 = x1;
@@ -58,14 +58,11 @@ public class Circle {
 
         double[] colorDiff = findColorsDifference(color1, color2);
 
-        Line line = new Line(300, 300, 500, 100);
-        Line line1 = new Line(300, 300, 500, 300);
 
-        Line line3 = new Line(300, 300, 100, 500);
 
         PixelWriter pixelWriter = canvas.getGraphicsContext2D().getPixelWriter();
         for (int x = x0; x <= x1; x++) {
-            if (line3.isPointUnderLine(x, y)) {
+            if (line1.isPointUnderLine(x, y) && !line2.isPointUnderLine(x, y)) {
                 pixelWriter.setColor(x, y, getInterpolatedColor(x, y, colorDiff, r, g, b));
             }
         }
