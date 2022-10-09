@@ -16,6 +16,14 @@ public class Circle {
         this.radius = radius;
     }
 
+    public int getInitialX() {
+        return initialX;
+    }
+
+    public int getInitialY() {
+        return initialY;
+    }
+
     public  void drawCircle(Canvas canvas, Color color1, Color color2, Line line1, Line line2) {
         int x = 0;
         int y = radius;
@@ -23,9 +31,8 @@ public class Circle {
         int error = 0;
 
         while (y >= 0) {
-
-            drawHorizontal(initialX + x, initialX - x, initialY + y, canvas, color1, color2, line1, line2);
-            drawHorizontal(initialX + x, initialX - x, initialY - y, canvas, color1, color2, line1, line2);
+            drawHorizontalLine(initialX + x, initialX - x, initialY + y, canvas, color1, color2, line1, line2);
+            drawHorizontalLine(initialX + x, initialX - x, initialY - y, canvas, color1, color2, line1, line2);
 
             if (delta < 0 && error <= 0) {
                 x++;
@@ -45,7 +52,7 @@ public class Circle {
         }
     }
 
-    private void drawHorizontal(int x0, int x1, int y, Canvas canvas, Color color1, Color color2, Line line1, Line line2) {
+    private void drawHorizontalLine(int x0, int x1, int y, Canvas canvas, Color color1, Color color2, Line line1, Line line2) {
         if (x0 > x1) {
             int temp = x0;
             x0 = x1;
@@ -58,13 +65,37 @@ public class Circle {
 
         double[] colorDiff = findColorsDifference(color1, color2);
 
-
-
         PixelWriter pixelWriter = canvas.getGraphicsContext2D().getPixelWriter();
         for (int x = x0; x <= x1; x++) {
-            if (line1.isPointUnderLine(x, y) && !line2.isPointUnderLine(x, y)) {
+            if (gotToDraw(x, y, line1, line2)) {
                 pixelWriter.setColor(x, y, getInterpolatedColor(x, y, colorDiff, r, g, b));
             }
+        }
+    }
+
+    private boolean gotToDraw(int x, int y, Line line1, Line line2) {
+        if (line1.getX1() > initialX && line2.getX1() > initialX) {
+            if (line1.getK() > line2.getK()) {
+                Line temp = line1;
+                line1 = line2;
+                line2 = temp;
+            }
+            return line1.isPointUnderLine(x, y)  && !line2.isPointUnderLine(x, y);
+
+        } else if (line1.getX1() < initialX && line2.getX1() < initialX) {
+            if (line1.getK() > line2.getK()) {
+                Line temp = line1;
+                line1 = line2;
+                line2 = temp;
+            }
+            return !line1.isPointUnderLine(x, y)  && line2.isPointUnderLine(x, y);
+
+        } else if (line1.getY1() >= initialY && line2.getY1() >= initialY) {
+
+            return line1.isPointUnderLine(x, y)  && line2.isPointUnderLine(x, y);
+        } else {
+
+            return !line1.isPointUnderLine(x, y)  && !line2.isPointUnderLine(x, y);
         }
     }
 
