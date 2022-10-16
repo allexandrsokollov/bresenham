@@ -52,7 +52,8 @@ public class Circle {
         }
     }
 
-    private void drawHorizontalLine(int x0, int x1, int y, Canvas canvas, Color color1, Color color2, Line line1, Line line2) {
+    private void drawHorizontalLine(int x0, int x1, int y, Canvas canvas, Color color1, Color color2,
+                                                                            Line line1, Line line2) {
         if (x0 > x1) {
             int temp = x0;
             x0 = x1;
@@ -114,18 +115,16 @@ public class Circle {
     private Color getInterpolatedColor(int x, int y, double[] colorDifference, int initColorR, int initColorG, int initColorB) {
         int distance = (int) Math.sqrt((initialX - x) * (initialX - x) + (initialY - y) * (initialY - y));
 
-        int red = (int) (initColorR + colorDifference[0] * distance);
-        int green = (int) (initColorG + colorDifference[1] * distance);
-        int blue = (int) (initColorB + colorDifference[2] * distance);
-
-        if (red < 0) red = 0;
-        if (green < 0) green = 0;
-        if (blue < 0) blue = 0;
-
-        if (red > 255) red = 255;
-        if (green > 255) green = 255;
-        if (blue > 255) blue = 255;
+        int red = fixRgbValues((int) (initColorR + colorDifference[0] * distance));
+        int green = fixRgbValues((int) (initColorG + colorDifference[1] * distance));
+        int blue = fixRgbValues((int) (initColorB + colorDifference[2] * distance));
 
         return Color.rgb(red, green, blue);
+    }
+
+    private int fixRgbValues(int value) {
+        if (value < 0) value = 0;
+        if (value > 255) value = 255;
+        return value;
     }
 }
