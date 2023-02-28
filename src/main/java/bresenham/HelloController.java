@@ -1,13 +1,12 @@
-package ru.sokolov.graphics_task_2_8;
+package bresenham;
 
+import bresenham.graphics.Bresenham;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.ColorPicker;
 
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
-import ru.sokolov.graphics_task_2_8.graphics.Circle;
-import ru.sokolov.graphics_task_2_8.graphics.Line;
 
 
 public class HelloController {
@@ -30,18 +29,18 @@ public class HelloController {
 
     @FXML
     protected void onHelloButtonClick() {
-        Circle circle = new Circle(300,300, 200);
 
         canvas.getGraphicsContext2D().setFill(Color.WHITE);
         canvas.getGraphicsContext2D().fillRect(0,0, canvas.getHeight(), canvas.getWidth());
 
-        double xFix = circle.getInitialX() + 0.001;
-        double yFix = -(circle.getInitialY() + 0.001);
+        int xStart = parseTextFieldValue(oneX) + (int) (canvas.getWidth() / 2);
+        int yStart =(int) (canvas.getHeight() / 2) - parseTextFieldValue(oneY);
 
-        Line line1 = new Line(300,300, parseTextFieldValue(twoX) + xFix, (parseTextFieldValue(twoY) + yFix) * -1);
-        Line line2 = new Line(300,300, parseTextFieldValue(oneX) + xFix,  (parseTextFieldValue(oneY) + yFix) * -1);
+        int xEnd = parseTextFieldValue(twoX) + (int) (canvas.getWidth() / 2);
+        int yEnd = (int) (canvas.getHeight() / 2) - parseTextFieldValue(twoY);
 
-        circle.drawCircle(canvas, colorPicker1.getValue(), colorPicker2.getValue(), line1, line2);
+
+        Bresenham.drawLine(xStart, yStart, xEnd, yEnd, canvas, colorPicker1.getValue(), colorPicker2.getValue());
 
     }
 

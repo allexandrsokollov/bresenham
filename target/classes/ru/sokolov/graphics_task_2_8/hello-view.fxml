@@ -12,25 +12,25 @@
     </padding>
    <AnchorPane prefHeight="117.0" prefWidth="660.0">
       <children>
-           <ColorPicker fx:id="colorPicker1" layoutX="452.0" layoutY="34.0" prefHeight="25.0" prefWidth="130.0"/>
-           <ColorPicker fx:id="colorPicker2" layoutX="452.0" layoutY="67.0" prefHeight="25.0" prefWidth="130.0"/>
+           <ColorPicker fx:id="colorPicker1" layoutX="452.0" layoutY="34.0" prefHeight="25.0" prefWidth="130.0" />
+           <ColorPicker fx:id="colorPicker2" layoutX="452.0" layoutY="67.0" prefHeight="25.0" prefWidth="130.0" />
 
-          <Button layoutX="591.0" layoutY="24.0" onAction="#onHelloButtonClick" prefHeight="70.0" prefWidth="47.0" text="Draw!" />
+          <Button layoutX="592.0" layoutY="36.0" onAction="#onHelloButtonClick" prefHeight="54.0" prefWidth="47.0" text="Draw!" />
 
-         <Label layoutX="361.0" layoutY="38.0" text="Line 1">
+         <Label layoutX="361.0" layoutY="38.0" text="start">
             <font>
                <Font size="14.0" />
             </font>
          </Label>
-         <Label layoutX="361.0" layoutY="70.0" text="Line 2">
+         <Label layoutX="361.0" layoutY="70.0" text="end">
             <font>
                <Font size="14.0" />
             </font>
          </Label>
-         <TextField layoutX="14.0" layoutY="34.0" fx:id="oneX"/>
-         <TextField layoutX="181.0" layoutY="34.0" fx:id="oneY"/>
-         <TextField layoutX="14.0" layoutY="67.0" fx:id="twoX"/>
-         <TextField layoutX="181.0" layoutY="67.0" fx:id="twoY"/>
+         <TextField fx:id="oneX" layoutX="14.0" layoutY="34.0" />
+         <TextField fx:id="oneY" layoutX="181.0" layoutY="34.0" />
+         <TextField fx:id="twoX" layoutX="14.0" layoutY="67.0" />
+         <TextField fx:id="twoY" layoutX="181.0" layoutY="67.0" />
       </children>
    </AnchorPane>
    <Canvas fx:id="canvas" height="600" width="600" />

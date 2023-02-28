@@ -1,4 +1,4 @@
-module ru.sokolov.graphics_task_2_8 {
+module bresenham {
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.web;
@@ -9,6 +9,6 @@ module ru.sokolov.graphics_task_2_8 {
     requires org.kordamp.bootstrapfx.core;
     requires com.almasb.fxgl.all;
 
-    opens ru.sokolov.graphics_task_2_8 to javafx.fxml;
-    exports ru.sokolov.graphics_task_2_8;
+    opens bresenham to javafx.fxml;
+    exports bresenham;
 }

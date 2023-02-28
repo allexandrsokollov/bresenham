@@ -1,4 +1,4 @@
-package ru.sokolov.graphics_task_2_8;
+package bresenham;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -12,7 +12,7 @@ public class HelloApplication extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 750, 750);
-        stage.setTitle("Task 2.8!");
+        stage.setTitle("Task 2!");
 
 
         stage.setScene(scene);
